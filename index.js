@@ -11,6 +11,11 @@ const app = express();
 const redis = require('redis');
 
 /*
+ * Init
+ */
+const redisClient = redis.createClient();
+
+/*
  * Logic
  */
 const createNewEvent = (req, res) => {
@@ -46,5 +51,5 @@ app.get('event/:id', getEvent);
  * Start app
  */
 app.listen(port, () => {
-    console.log(`Asiamed Event Backend running on ${port}`)
+    console.log(`Event Service running on ${port}`)
 })
