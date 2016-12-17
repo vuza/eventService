@@ -12,7 +12,7 @@ describe('Event Service', () => {
 	var eventService;
 
 	before(() => {
-        // Mock redis
+		// Mock redis
 		sinon.stub(redis, 'createClient', fakeredis.createClient);
 		eventService = require('./index');
 		redisClient = redis.createClient('eventService');
@@ -32,14 +32,14 @@ describe('Event Service', () => {
 
 			redisClient.set(id, 'xx', () => {
 				request(eventService)
-                .post('/event')
-                .set('Content-Type', 'application/x-www-form-urlencoded')
-                .send({name: name, startDate: 'ya', duration: 'asdf'})
-                .expect(400, (err) => {
-	assert(!err, err ? err.message : '');
+				.post('/event')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send({name: name, startDate: 'ya', duration: 'asdf', username: 'marlon', password: 'x'})
+				.expect(400, (err) => {
+					assert(!err, err ? err.message : '');
 
-	done();
-});
+					done();
+				});
 			});
 		});
 
@@ -49,25 +49,25 @@ describe('Event Service', () => {
 			const duration = 'LJKd';
 
 			request(eventService)
-            .post('/event')
-            .set('Content-Type', 'application/x-www-form-urlencoded')
-            .send({name: name, startDate: startDate, duration: duration})
-            .expect(200, (err, res) => {
-	assert(!err, err ? err.message : '');
-	assert.notEqual(res.text, null);
+			.post('/event?username=marlon&password=x')
+			.set('Content-Type', 'application/x-www-form-urlencoded')
+			.send({name: name, startDate: startDate, duration: duration, username: 'marlon', password: 'x'})
+			.expect(200, (err, res) => {
+				assert(!err, err ? err.message : '');
+				assert.notEqual(res.text, null);
 
-	redisClient.get(res.text, (err, event) => {
-		assert(!err, err ? err.message : '');
-		assert.notEqual(event, null);
+				redisClient.get(res.text, (err, event) => {
+					assert(!err, err ? err.message : '');
+					assert.notEqual(event, null);
 
-		event = JSON.parse(event);
-		assert.equal(event.name, name);
-		assert.equal(event.startDate, startDate);
-		assert.equal(event.duration, duration);
+					event = JSON.parse(event);
+					assert.equal(event.name, name);
+					assert.equal(event.startDate, startDate);
+					assert.equal(event.duration, duration);
 
-		done();
-	});
-});
+					done();
+				});
+			});
 		});
 	});
 
@@ -82,23 +82,23 @@ describe('Event Service', () => {
 				const newDuration = 'sdf';
 
 				request(eventService)
-                .post(`/event/${id}`)
-                .send({name: newName, startDate: newStartDate, duration: newDuration})
-                .expect(200, (err, res) => {
-	assert(!err, err ? err.message : '');
+				.post(`/event/${id}?username=marlon&password=x`)
+				.send({name: newName, startDate: newStartDate, duration: newDuration, username: 'marlon', password: 'x'})
+				.expect(200, (err, res) => {
+					assert(!err, err ? err.message : '');
 
-	redisClient.get(res.text, (err, event) => {
-		assert(!err, err ? err.message : '');
-		assert.notEqual(event, null);
+					redisClient.get(res.text, (err, event) => {
+						assert(!err, err ? err.message : '');
+						assert.notEqual(event, null);
 
-		event = JSON.parse(event);
-		assert.equal(event.name, newName);
-		assert.equal(event.startDate, newStartDate);
-		assert.equal(event.duration, newDuration);
+						event = JSON.parse(event);
+						assert.equal(event.name, newName);
+						assert.equal(event.startDate, newStartDate);
+						assert.equal(event.duration, newDuration);
 
-		done();
-	});
-});
+						done();
+					});
+				});
 			});
 		});
 	});
@@ -112,13 +112,13 @@ describe('Event Service', () => {
 				redisClient.exists(id, (err, exists) => assert(exists));
 
 				request(eventService)
-                .delete(`/event/${id}`)
-                .expect(200, (err) => {
-	assert(!err, err ? err.message : '');
-	redisClient.exists(id, (err, exists) => assert(!exists));
+				.delete(`/event/${id}?username=marlon&password=x`)
+				.expect(200, (err) => {
+					assert(!err, err ? err.message : '');
+					redisClient.exists(id, (err, exists) => assert(!exists));
 
-	done();
-});
+					done();
+				});
 			});
 		});
 	});
@@ -143,26 +143,25 @@ describe('Event Service', () => {
 				assert(!err, err ? err.message : '');
 
 				request(eventService)
-                .get('/events')
-                .expect(200, (err, res) => {
-	assert(!err, err ? err.message : '');
-	assert(res.text);
+				.get('/events?username=marlon&password=x')
+				.expect(200, (err, res) => {
+					assert(!err, err ? err.message : '');
+					assert(res.text);
 
-	const events = JSON.parse(res.text);
-	assert.equal(Object.keys(events).length, names.length);
+					const events = JSON.parse(res.text);
+					assert.equal(Object.keys(events).length, names.length);
 
-	const eventsFound = [];
-	for(var i = 0; i < Object.keys(events).length; i++){
-		eventsFound.push(JSON.parse(events[i]).name);
-	}
+					const eventsFound = [];
+					for(var i = 0; i < Object.keys(events).length; i++){
+						eventsFound.push(JSON.parse(events[i]).name);
+					}
 
-	const sortNames = (a, b) => a < b;
-	assert.deepEqual(names.sort(sortNames), eventsFound.sort(sortNames));
+					const sortNames = (a, b) => a < b;
+					assert.deepEqual(names.sort(sortNames), eventsFound.sort(sortNames));
 
-	done();
-});
+					done();
+				});
 			});
-
 		});
 	});
 
@@ -176,15 +175,15 @@ describe('Event Service', () => {
 				assert(!err, err ? err.message : '');
 
 				request(eventService)
-                .get(`/event/${id}`)
-                .expect(200, (err, res) => {
-	assert(!err, err ? err.message : '');
+				.get(`/event/${id}?username=marlon&password=x`)
+				.expect(200, (err, res) => {
+					assert(!err, err ? err.message : '');
 
-	const event = JSON.parse(res.text);
-	assert.deepEqual(event, {name: name, startDate: string, duration: string});
+					const event = JSON.parse(res.text);
+					assert.deepEqual(event, {name: name, startDate: string, duration: string});
 
-	done();
-});
+					done();
+				});
 			});
 		});
 	});
