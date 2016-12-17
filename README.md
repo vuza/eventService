@@ -4,6 +4,6 @@
 I will use it to manage events, which get shown on asiamed.at
 
 ## Development
-- Hard dependencies: Redis without authentication on default port, on localhost
+- Hard dependencies: Redis without authentication on default port, on localhost, on socker 'eventService'
 - Install app: ```npm install```
 - Use linting: ```npm run lint```

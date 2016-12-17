@@ -15,7 +15,10 @@ describe('Event Service', () => {
 		// Mock redis
 		sinon.stub(redis, 'createClient', fakeredis.createClient);
 		eventService = require('./index');
-		redisClient = redis.createClient('eventService');
+		redisClient = redis.createClient({
+			host: '127.0.0.1',
+			port: 6379
+		});
 	});
 
 	afterEach((done) => {
