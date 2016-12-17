@@ -10,8 +10,10 @@
   "author": "malagoda",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "randomstring": "^1.1.5",
     "redis": "^2.6.3",
     "string-hash": "^1.1.1"
   },
