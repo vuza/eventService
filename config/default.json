@@ -1,0 +1,8 @@
+{
+    "users": {
+        "chandi": {"username": "chandi", "password": "xx"},
+        "marlon": {"username": "marlon", "password": "xx"}
+    },
+
+    "listenPort": 8080
+}
