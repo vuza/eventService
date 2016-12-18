@@ -1,9 +1,4 @@
 /*
-* Config
-*/
-const port = 8080;
-
-/*
 * Dependencies
 */
 const express = require('express');
@@ -27,6 +22,10 @@ const redisClient = redis.createClient({
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.disable('x-powered-by');
+
+const port = config.listenPort;
 
 /*
 * Authentication
