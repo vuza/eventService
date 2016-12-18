@@ -13,7 +13,9 @@ const bodyParser = require('body-parser');
 const hash = require('string-hash');
 const async = require('async');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
+const config = require('config');
+const randomstring = require('randomstring');
 
 /*
 * Init
@@ -29,17 +31,40 @@ app.use(bodyParser.json());
 /*
 * Authentication
 */
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-	if(username == 'chandi' || username == 'marlon' && password == 'x'){
-		return done(null, {name: username});
-	}
+app.use(passport.initialize());
 
-	return done(null, false);
-}
+passport.use(new BearerStrategy(
+	  (token, done) => {
+		  if(!sessions[token]){
+			  return done(null, false);
+		  }
+
+		  return done(null, config.users[sessions[token]]);
+	  }
 ));
 
-app.use(passport.initialize());
+const sessions = {};
+
+const auth = (req, res) => {
+	const loginUsername = req.body.username;
+	const loginPassword = req.body.password;
+
+	if(!loginUsername || !loginPassword){
+		return res.status(400).send('Parameter missing');
+	}
+
+	Object.keys(config.users).forEach((username) => {
+		const user = config.users[username];
+
+		if(loginUsername === user.username && loginPassword === user.password){
+			const bearer = randomstring.generate(20);
+			sessions[bearer] = username;
+			return res.status(200).send(bearer);
+		}
+	});
+
+	return res.status(401).send();
+}
 
 /*
 * Logic
@@ -184,22 +209,12 @@ const getEvent = (req, res) => {
 /*
 * Routing
 */
-const authMiddleware = (req, res, next) => {
-	passport.authenticate('local', (err, user, info) => {
-		if(!user){
-			console.log(info);
-			return res.status(403).send();
-		}
-
-		next();
-	})(req, res, next);
-};
-
-app.post('/event', authMiddleware, createNewEvent);
-app.post('/event/:id', authMiddleware, editEvent);
-app.delete('/event/:id', authMiddleware, deleteEvent);
-app.get('/events', authMiddleware, listEvents);
-app.get('/event/:id', authMiddleware, getEvent);
+app.post('/auth', auth);
+app.post('/event', passport.authenticate('bearer', { session: false }), createNewEvent);
+app.post('/event/:id', passport.authenticate('bearer', { session: false }), editEvent);
+app.delete('/event/:id', passport.authenticate('bearer', { session: false }), deleteEvent);
+app.get('/events', listEvents);
+app.get('/event/:id', getEvent);
 
 /*
 * Start app
