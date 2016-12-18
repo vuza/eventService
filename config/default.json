@@ -4,5 +4,10 @@
         "marlon": {"username": "marlon", "password": "xx"}
     },
 
-    "listenPort": 8080
+    "listenPort": 8080,
+
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379
+    }
 }

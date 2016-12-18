@@ -16,8 +16,8 @@ const randomstring = require('randomstring');
 * Init
 */
 const redisClient = redis.createClient({
-	host: '127.0.0.1',
-	port: 6379
+	host: config.redis.host,
+	port: config.redis.port
 });
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -86,7 +86,7 @@ const createNewEvent = (req, res) => {
 		}
 
 		if(!event){
-			redisClient.set(id, JSON.stringify({name: name, startDate: startDate, duration: duration}), (err) => {
+			redisClient.set(id, JSON.stringify({name: name, startDate: startDate, duration: duration, id: id}), (err) => {
 				if(err) {
 					console.error(`Error while creating Event with id ${id}.`);
 					return res.status(500).send();
@@ -173,13 +173,13 @@ const listEvents = (req, res) => {
 		async.parallel(
             tasks,
             (err, events) => {
-	if(err){
-		console.error('Error while reading events.');
-		return res.status(500).send();
-	}
+				if(err){
+					console.error('Error while reading events.');
+					return res.status(500).send();
+				}
 
-	return res.status(200).send(events);
-}
+				return res.status(200).send(events);
+			}
         );
 	});
 };
