@@ -1,0 +1,8 @@
+---
+- hosts: '{{ target }}'
+  become: True
+  roles:
+      - angstwad.docker_ubuntu
+      - gantsign.gitkraken
+      #download repo - install
+      - updateandrun #build docker and start
