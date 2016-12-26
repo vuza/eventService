@@ -10,6 +10,7 @@ const hash = require('string-hash');
 describe('Event Service', () => {
 	var redisClient;
 	var eventService;
+	var bearer;
 
 	before(() => {
 		// Mock redis
@@ -18,6 +19,21 @@ describe('Event Service', () => {
 		redisClient = redis.createClient({
 			host: '127.0.0.1',
 			port: 6379
+		});
+	});
+
+	beforeEach((done) =>  {
+		bearer = null;
+
+		request(eventService)
+		.post('/auth')
+		.send({username: 'marlon', password: 'xx'})
+		.expect(200, (err, res) => {
+			assert(!err, err ? err.message : '');
+
+			bearer = res.text;
+
+			done();
 		});
 	});
 
@@ -37,7 +53,8 @@ describe('Event Service', () => {
 				request(eventService)
 				.post('/event')
 				.set('Content-Type', 'application/x-www-form-urlencoded')
-				.send({name: name, startDate: 'ya', duration: 'asdf', username: 'marlon', password: 'x'})
+				.set('Authorization', `Bearer ${bearer}`)
+				.send({name: name, startDate: 'ya', duration: 'asdf'})
 				.expect(400, (err) => {
 					assert(!err, err ? err.message : '');
 
@@ -52,9 +69,10 @@ describe('Event Service', () => {
 			const duration = 'LJKd';
 
 			request(eventService)
-			.post('/event?username=marlon&password=x')
+			.post('/event')
 			.set('Content-Type', 'application/x-www-form-urlencoded')
-			.send({name: name, startDate: startDate, duration: duration, username: 'marlon', password: 'x'})
+			.set('Authorization', `Bearer ${bearer}`)
+			.send({name: name, startDate: startDate, duration: duration})
 			.expect(200, (err, res) => {
 				assert(!err, err ? err.message : '');
 				assert.notEqual(res.text, null);
@@ -85,8 +103,9 @@ describe('Event Service', () => {
 				const newDuration = 'sdf';
 
 				request(eventService)
-				.post(`/event/${id}?username=marlon&password=x`)
-				.send({name: newName, startDate: newStartDate, duration: newDuration, username: 'marlon', password: 'x'})
+				.post(`/event/${id}`)
+				.send({name: newName, startDate: newStartDate, duration: newDuration})
+				.set('Authorization', `Bearer ${bearer}`)
 				.expect(200, (err, res) => {
 					assert(!err, err ? err.message : '');
 
@@ -115,7 +134,8 @@ describe('Event Service', () => {
 				redisClient.exists(id, (err, exists) => assert(exists));
 
 				request(eventService)
-				.delete(`/event/${id}?username=marlon&password=x`)
+				.delete(`/event/${id}`)
+				.set('Authorization', `Bearer ${bearer}`)
 				.expect(200, (err) => {
 					assert(!err, err ? err.message : '');
 					redisClient.exists(id, (err, exists) => assert(!exists));
@@ -146,7 +166,7 @@ describe('Event Service', () => {
 				assert(!err, err ? err.message : '');
 
 				request(eventService)
-				.get('/events?username=marlon&password=x')
+				.get('/events')
 				.expect(200, (err, res) => {
 					assert(!err, err ? err.message : '');
 					assert(res.text);
@@ -178,7 +198,7 @@ describe('Event Service', () => {
 				assert(!err, err ? err.message : '');
 
 				request(eventService)
-				.get(`/event/${id}?username=marlon&password=x`)
+				.get(`/event/${id}`)
 				.expect(200, (err, res) => {
 					assert(!err, err ? err.message : '');
 
