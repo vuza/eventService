@@ -4,5 +4,5 @@
   roles:
       - angstwad.docker_ubuntu
       - gantsign.gitkraken
-      #download repo - install
-      - updateandrun #build docker and start
+      - install # Download this repo
+      - updateandrun # build docker and start this and dependend dockers

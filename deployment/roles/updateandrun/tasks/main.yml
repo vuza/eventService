@@ -1,4 +1,22 @@
 ---
-- name: DEBUG
-  debug:
-    msg: "HELLO WORLD"
+- name: Checkout code
+  git: repo={{ gitUrl }} dest={{ root }} force=yes accept_hostkey=True version={{ gitVersion }}
+
+- name: Build docker
+  docker_image:
+    path: .
+    name: vuza/eventservice
+
+- name: Start database service
+  docker:
+    name: eventService-redis
+    image: redis
+    state: started
+
+- name: Start eventService
+  docker:
+    image: vuza/eventservice
+    ports:
+      - "8080:8080"
+    links:
+      - "eventService-redis:redis"

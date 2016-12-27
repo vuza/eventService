@@ -17,7 +17,7 @@ HTTP Bearer is used for authentication. There is implemented a very poor user ma
 
 ### Remote
 - Install ansible dependencies: ```ansible-galaxy install -r deployment/requirements.yml --roles-path deployment/roles```
-- Install on remote machine: ```ansible-playbook deployment/playbook.yml --extra-vars "target=alagoda.at" --ask-sudo```
+- Install on remote machine, replace alagoda.at in this command and in host file: ```ansible-playbook deployment/playbook.yml --extra-vars "target=alagoda.at" --ask-sudo```
 
 ### Local
 - Build docker container: ```docker build -t vuza/eventservice .```

@@ -1,0 +1,4 @@
+---
+- name: Create directory for app
+  become: True
+  file: path={{ root }} state=directory owner={{ remote_user }} group=www-data
