@@ -3,17 +3,21 @@
   git: repo={{ gitUrl }} dest={{ root }} force=yes accept_hostkey=True version={{ gitVersion }}
 
 - name: Build docker
+  become: True
   docker_image:
-    path: .
+    path: "{{ root }}"
+    state: present
     name: vuza/eventservice
 
 - name: Start database service
+  become: True
   docker:
     name: eventService-redis
     image: redis
     state: started
 
 - name: Start eventService
+  become: True
   docker:
     image: vuza/eventservice
     ports:

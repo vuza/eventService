@@ -2,7 +2,7 @@
 - hosts: '{{ target }}'
   become: True
   roles:
-      - angstwad.docker_ubuntu
-      - gantsign.gitkraken
-      - install # Download this repo
-      - updateandrun # build docker and start this and dependend dockers
+      - { role: angstwad.docker_ubuntu, pip_version_docker_py: 1.9.0 }
+      - { role: gantsign.gitkraken }
+      - { role: install } # Download this repo
+      - { role: updateandrun, tags: [ updateandrun ] } # build docker and start this and dependend dockers
