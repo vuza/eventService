@@ -15,7 +15,7 @@ HTTP Bearer is used for authentication. There is implemented a very poor user ma
 
 ## Deployment
 
-### Remote
+### Remote (Ship Docker to server via ansible)
 - Install ansible dependencies: ```ansible-galaxy install -r deployment/requirements.yml --roles-path deployment/roles```
 - Install on remote machine, replace alagoda.at in this command and in host file: ```ansible-playbook deployment/playbook.yml --extra-vars "target=alagoda.at" --ask-sudo```
 
@@ -23,5 +23,3 @@ HTTP Bearer is used for authentication. There is implemented a very poor user ma
 - Build docker container: ```docker build -t vuza/eventservice .```
 - Start redis docker container: ```docker run --name eventService-redis -d redis```
 - Start eventService docker container, link it to eventService-redis and expose it to any port, e.g. 8080: ```docker run --link eventService-redis:redis -p 8080:8080 -d vuza/eventservice```
-
-### Ship Docker to server via ansible
