@@ -1,0 +1,21 @@
+{
+  "name": "event-service-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devserver": "./node_modules/.bin/webpack-dev-server --progress --colors --hot --content-base public"
+  },
+  "author": "malagoda",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "react-scripts": "^0.6.0"
+  }
+}
