@@ -77,13 +77,13 @@ const addedEvent = (event) => ({
     event: event
 })
 
-export const addEvent = (name) => {
+export const addEvent = (name, startDate, duration) => {
     return (dispatch, getState) => {
         dispatch(addingEvent())
 
         const bearer = getState().bearer
 
-        const params = {name: name, startDate: 'xas', duration: 'asdf'} // TODO startDate, duration
+        const params = {name: name, startDate: startDate, duration: duration}
         const data = Object.keys(params).map((key) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')

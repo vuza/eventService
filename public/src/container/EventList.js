@@ -4,9 +4,9 @@ import Event from '../components/Event'
 
 const EventListComponent = ({ events }) => (
   <ul>
-    {events.map((event, i) =>
+    {events.map((event) =>
       <Event
-        key={i}
+        key={event.id}
         {...event}
       />
     )}
@@ -15,7 +15,10 @@ const EventListComponent = ({ events }) => (
 
 EventListComponent.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
+    startDate: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired).isRequired
 }
 

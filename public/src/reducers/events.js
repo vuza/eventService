@@ -4,9 +4,10 @@ const events = (state = [], action) => {
     switch(action.type) {
         case actionTypes.ADDED_EVENT:
             return state.concat([{
-                name: action.name, // TODO startDate, duration
-                startDate: 'asfd',
-                duration: 'asd'
+                id: action.event.id,
+                name: action.event.name,
+                startDate: action.event.startDate,
+                duration: action.event.duration
             }])
 
         case actionTypes.RECEIVE_EVENTS:
