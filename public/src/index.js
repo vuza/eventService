@@ -1,17 +1,28 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import App from './components/App'
-import reducer from './reducers'
+import { createStore, applyMiddleware } from 'redux'
+import eventServiceApp from './reducers'
+import * as actions from './actions'
+import App from './container/App'
+import thunkMiddleware from 'redux-thunk'
 
-const store = createStore(reducer)
-
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+let store = createStore(
+    eventServiceApp,
+    applyMiddleware(
+        thunkMiddleware
+    )
 )
 
-console.log('HI')
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+)
+
+store.subscribe(() =>
+  console.log(store.getState())
+)
+
+store.dispatch(actions.fetchEvents())

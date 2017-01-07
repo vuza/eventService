@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devserver": "./node_modules/.bin/webpack-dev-server --progress --colors --hot --content-base public"
+    "start": "./node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "./node_modules/react-scripts/bin/react-scripts.js build"
   },
   "author": "malagoda",
   "license": "ISC",
@@ -13,7 +14,8 @@
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "react-scripts": "^0.6.0"

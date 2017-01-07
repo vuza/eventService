@@ -25,6 +25,12 @@ app.use(bodyParser.json());
 
 app.disable('x-powered-by');
 
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  	next();
+});
+
 const port = config.listenPort;
 
 /*
@@ -72,7 +78,7 @@ const createNewEvent = (req, res) => {
 	const name = req.body.name;
 	const startDate = req.body.startDate;
 	const duration = req.body.duration;
-
+console.log(name, startDate,duration)
 	if(!name || !startDate || !duration){
 		return res.status(400).send('Parameter missing');
 	}
