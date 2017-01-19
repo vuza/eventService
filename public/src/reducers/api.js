@@ -4,6 +4,7 @@ const api = (state = {communicating: false, invalidate: false}, action) => {
     switch(action.type) {
         case actionTypes.ADDING_EVENT:
         case actionTypes.REQUEST_EVENTS:
+        case actionTypes.DELETING_EVENT:
             return Object.assign({}, state, {
                 communicating: true,
                 invalidate: false
@@ -11,6 +12,7 @@ const api = (state = {communicating: false, invalidate: false}, action) => {
 
         case actionTypes.ADDED_EVENT:
         case actionTypes.RECEIVE_EVENTS:
+        case actionTypes.DELETED_EVENT:
             return Object.assign({}, state, {
                 communicating: false,
                 invalidate: false

@@ -1,14 +1,27 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import Event from '../components/Event'
+import EditingEvent from '../components/EditingEvent'
+import { deleteEvent, editEvent, updateEvent } from '../actions'
 
-const EventListComponent = ({ events }) => (
+const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
   <ul>
     {events.map((event) =>
-      <Event
-        key={event.id}
-        {...event}
-      />
+        event.editing ?
+            <li key={event.id}>
+                <EditingEvent
+                    {...event}
+                    onDelete={() => onDelete(event.id)}
+                    onEdit={() => onEdit(event.id)}
+                    onSave={(name, startDate, duration) => onSave(event.id, name, startDate, duration)}
+                />
+            </li> :
+            <Event
+                key={event.id}
+                {...event}
+                onDelete={() => onDelete(event.id)}
+                onEdit={() => onEdit(event.id)}
+            />
     )}
   </ul>
 )
@@ -26,8 +39,15 @@ const mapStateToProps = (state) => ({
     events: state.events
 })
 
+const mapDispatchToProps = ({
+    onDelete: deleteEvent,
+    onEdit: editEvent,
+    onSave: updateEvent
+})
+
 const EventList = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(EventListComponent)
 
 export default EventList

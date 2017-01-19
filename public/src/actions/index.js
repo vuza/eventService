@@ -10,6 +10,9 @@ export const ADDED_EVENT = 'ADDED_EVENT'
 export const AUTHORIZATION_ERROR = 'AUTHORIZATION_ERROR'
 export const AUTHORIZED = 'AUTHORIZED'
 export const AUTHORIZING = 'AUTHORIZING'
+export const DELETING_EVENT = 'DELETING_EVENT'
+export const DELETED_EVENT = 'DELETED_EVENT'
+export const EDITING_EVENT = 'EDITING_EVENT'
 
 /*
  * action creators
@@ -122,7 +125,7 @@ export const fetchEvents = () => {
     return (dispatch) => {
         dispatch(requestEvents())
 
-        return fetch(`http://localhost:8080/events`)
+        return fetch('http://localhost:8080/events')
             .then(r => {
                 if(!r.ok) {
                     throw Error(r.status)
@@ -134,4 +137,47 @@ export const fetchEvents = () => {
             .then(events => dispatch(receiveEvents(events)))
             .catch(error => dispatch(handleFetchError(error)))
     }
+}
+
+const deletingEvent = () => ({
+    type: DELETING_EVENT
+})
+
+const deletedEvent = (id) => ({
+    type: DELETED_EVENT,
+    id: id
+})
+
+export const deleteEvent = (id) => {
+    return (dispatch, getState) => {
+        dispatch(deletingEvent())
+
+        const bearer = getState().bearer
+
+        return fetch(`http://localhost:8080/event/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${bearer}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(r => {
+                if(!r.ok) {
+                    throw Error(r.status)
+                }
+
+                return r
+            })
+            .then(() => dispatch(deletedEvent(id)))
+            .catch(error => dispatch(handleFetchError(error)))
+    }
+}
+
+export const editEvent = (id) => ({
+    type: EDITING_EVENT,
+    id: id
+})
+
+export const updateEvent = (id, name, startDate, duration) => {
+    console.log('HI')
 }
