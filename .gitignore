@@ -1,2 +1,5 @@
 node_modules/
 npm-debug.log
+
+deployment/roles/angstwad.docker_ubuntu
+deployment/roles/gantsign.gitkraken

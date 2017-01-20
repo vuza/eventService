@@ -20,7 +20,6 @@ const LoginComponent = ({ dispatch }) => {
                 username.value = ''
                 password.value = ''
             }}>
-                // TODO remove defaultValue
                 <input defaultValue='marlon' ref={node => {
                     username = node
                 }} />
