@@ -7,7 +7,7 @@
   docker_image:
     path: "{{ root }}"
     state: present
-    name: vuza/eventservice
+    name: vuza/eventservice-backend
 
 - name: Start database service
   become: True
@@ -16,10 +16,11 @@
     image: redis
     state: started
 
-- name: Start eventService
+- name: Start eventService-backend
   become: True
   docker:
-    image: vuza/eventservice
+    image: vuza/eventservice-backend
+    state: reloaded
     ports:
       - "8080:8080"
     links:
