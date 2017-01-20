@@ -14,4 +14,4 @@ COPY . /usr/src/app
 EXPOSE 9000
 
 CMD [ "npm", "run", "build" ]
-CMD [ "npm", "run", "buildStart" ]
+CMD [ "./../node_modules/pushstate-server/bin/pushstate-server", "build" ]
