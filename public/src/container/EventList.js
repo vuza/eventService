@@ -11,8 +11,6 @@ const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
             <li key={event.id}>
                 <EditingEvent
                     {...event}
-                    onDelete={() => onDelete(event.id)}
-                    onEdit={() => onEdit(event.id)}
                     onSave={(name, startDate, duration) => onSave(event.id, name, startDate, duration)}
                 />
             </li> :

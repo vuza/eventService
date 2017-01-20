@@ -21,18 +21,21 @@ const EditingEvent = ({ name, startDate, duration, onSave, dispatch }) => {
         }}>
             <input
                 defaultValue={ name }
+                placeholder='Name'
                 ref={ node => {
                     newName = node
                 }}
             />
             <input
                 defaultValue={ startDate }
+                placeholder='Start Date'
                 ref={ node => {
                     newStartDate = node
                 }}
             />
             <input
                 defaultValue={ duration }
+                placeholder='Duration'
                 ref={ node => {
                     newDuration = node
                 }}

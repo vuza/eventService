@@ -1,44 +1,21 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions'
+import EditingEvent from '../components/EditingEvent'
 
-const AddEventComponent = ({ dispatch }) => {
-    let name
-    let startDate
-    let duration
+const mapDispatchToProps = ({
+    onSave: addEvent
+})
 
-    return (
-        <div>
-            <form onSubmit={e => {
-                e.preventDefault()
+const mergeProps = () => ({
+    name: '',
+    startDate: '',
+    duration: ''
+})
 
-                if (!name.value.trim() || !startDate.value.trim() || !duration.value.trim()) {
-                    return
-                }
-
-                dispatch(addEvent(name.value, startDate.value, duration.value))
-
-                name.value = ''
-                startDate.value = ''
-                duration.value = ''
-            }}>
-                <input ref={node => {
-                    name = node
-                }} />
-                <input ref={node => {
-                    startDate = node
-                }} />
-                <input ref={node => {
-                    duration = node
-                }} />
-                <button type='submit'>
-                    Add Event
-                </button>
-            </form>
-        </div>
-    )
-}
-
-const AddEvent = connect()(AddEventComponent)
+const AddEvent = connect(
+    () => ({}),
+    mapDispatchToProps,
+    mergeProps
+)(EditingEvent)
 
 export default AddEvent
