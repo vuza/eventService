@@ -5,4 +5,5 @@
       - { role: angstwad.docker_ubuntu, pip_version_docker_py: 1.7.0 }
       - { role: gantsign.gitkraken }
       - { role: install } # Download this repo
-      - { role: updateandrun, tags: [ updateandrun ] } # build docker and start this and dependend dockers
+      - { role: updateandrunbackend, tags: [ updateandrunbackend ] } # build docker and start this and dependend dockers
+      - { role: updateandrunfrontend, tags: [ updateandrunfrontend ] } # build docker and start it
