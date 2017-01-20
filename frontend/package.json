@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "quickStart": "./node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "./node_modules/react-scripts/bin/react-scripts.js build",
-    "buildStart": "./node_modules/pushstate-server/bin/pushstate-server build"
+    "build": "./node_modules/react-scripts/bin/react-scripts.js build"
   },
   "author": "malagoda",
   "license": "ISC",
