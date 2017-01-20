@@ -2,20 +2,15 @@ import { connect } from 'react-redux'
 import { addEvent } from '../actions'
 import EditingEvent from '../components/EditingEvent'
 
-const mapDispatchToProps = ({
-    onSave: addEvent
-})
-
-const mergeProps = () => ({
-    name: '',
-    startDate: '',
-    duration: ''
+const mapDispatchToProps = dispatch => ({
+    onSave: (id, name, startDate, duration, link) => {
+        dispatch(addEvent(name, startDate, duration, link))
+    }
 })
 
 const AddEvent = connect(
-    () => ({}),
-    mapDispatchToProps,
-    mergeProps
+    () => ({}), // empty mapStateToProps
+    mapDispatchToProps
 )(EditingEvent)
 
 export default AddEvent

@@ -11,7 +11,7 @@ const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
             <li key={event.id}>
                 <EditingEvent
                     {...event}
-                    onSave={(name, startDate, duration) => onSave(event.id, name, startDate, duration)}
+                    onSave={onSave}
                 />
             </li> :
             <Event
@@ -37,10 +37,10 @@ const mapStateToProps = (state) => ({
     events: state.events
 })
 
-const mapDispatchToProps = ({
-    onDelete: deleteEvent,
-    onEdit: editEvent,
-    onSave: updateEvent
+const mapDispatchToProps = dispatch => ({
+    onDelete: id => dispatch(deleteEvent(id)),
+    onEdit: id => dispatch(editEvent(id)),
+    onSave: (id, name, startDate, duration, link) => dispatch(updateEvent(id, name, startDate, duration, link))
 })
 
 const EventList = connect(

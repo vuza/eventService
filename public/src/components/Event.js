@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
 
-const Event = ({ name, startDate, duration, onDelete, onEdit }) => (
+const Event = ({ id, name, startDate, duration, link, onDelete, onEdit }) => (
   <li>
-    {name}, {startDate}, {duration}
+    {name}, {startDate}, {duration}, {link}
     <button
-        onClick={onDelete}
+        onClick={()=>{onDelete(id)}}
     >
         Delete
     </button>
     <button
-        onClick={onEdit}
+        onClick={()=>{onEdit(id)}}
     >
         Edit
     </button>

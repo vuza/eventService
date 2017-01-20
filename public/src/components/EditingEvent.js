@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 
-const EditingEvent = ({ name, startDate, duration, onSave, dispatch }) => {
+const EditingEvent = ({ id = '', name = '', startDate = '', duration = '', link = '', onSave }) => {
     let newName
     let newStartDate
     let newDuration
+    let newLink
 
     return (
         <form onSubmit={ e => {
@@ -12,12 +13,13 @@ const EditingEvent = ({ name, startDate, duration, onSave, dispatch }) => {
             if (!newName.value.trim() || !newStartDate.value.trim() || !newDuration.value.trim()) {
                 return
             }
+            
+            onSave(id, newName.value, newStartDate.value, newDuration.value, newLink.value)
 
-            dispatch(onSave(newName.value, newStartDate.value, newDuration.value))
-
-            name.value = ''
-            startDate.value = ''
-            duration.value = ''
+            newName.value = ''
+            newStartDate.value = ''
+            newDuration.value = ''
+            newLink.value = ''
         }}>
             <input
                 defaultValue={ name }
@@ -40,6 +42,13 @@ const EditingEvent = ({ name, startDate, duration, onSave, dispatch }) => {
                     newDuration = node
                 }}
             />
+            <input
+                defaultValue={ link }
+                placeholder='Link'
+                ref={ node => {
+                    newLink = node
+                }}
+            />
             <button type='submit'>
                 Save
             </button>
@@ -48,9 +57,7 @@ const EditingEvent = ({ name, startDate, duration, onSave, dispatch }) => {
 }
 
 EditingEvent.propTypes = {
-    name: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired
+    onSave: PropTypes.func.isRequired
 }
 
 export default EditingEvent

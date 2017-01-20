@@ -79,6 +79,7 @@ const createNewEvent = (req, res) => {
 	const name = req.body.name;
 	const startDate = req.body.startDate;
 	const duration = req.body.duration;
+	const link = req.body.link || '';
 
 	if(!name || !startDate || !duration){
 		return res.status(400).send('Parameter missing');
@@ -93,7 +94,7 @@ const createNewEvent = (req, res) => {
 		}
 
 		if(!event){
-			const newEvent = {name: name, startDate: startDate, duration: duration, id: id};
+			const newEvent = {name: name, startDate: startDate, duration: duration, id: id, link: link};
 			redisClient.set(id, JSON.stringify(newEvent), (err) => {
 				if(err) {
 					console.error(`Error while creating Event with id ${id}.`);
@@ -127,17 +128,18 @@ const editEvent = (req, res) => {
 
 		event = JSON.parse(event);
 
-		const name = req.body.name || event.name;
-		const startDate = req.body.startDate || event.startDate;
-		const duration = req.body.duration || event.duration;
+		event.name = req.body.name || event.name;
+		event.startDate = req.body.startDate || event.startDate;
+		event.duration = req.body.duration || event.duration;
+		event.link = req.body.link || event.link;
 
-		redisClient.set(id, JSON.stringify({name: name, startDate: startDate, duration: duration}), (err) => {
+		redisClient.set(id, JSON.stringify(event), (err) => {
 			if(err) {
 				console.error(`Error while updating Event with id ${id}.`);
 				return res.status(500).send();
 			}
 
-			return res.status(200).send(String(id));
+			return res.status(200).send(event);
 		});
 	});
 };

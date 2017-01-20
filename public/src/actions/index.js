@@ -13,6 +13,8 @@ export const AUTHORIZING = 'AUTHORIZING'
 export const DELETING_EVENT = 'DELETING_EVENT'
 export const DELETED_EVENT = 'DELETED_EVENT'
 export const EDITING_EVENT = 'EDITING_EVENT'
+export const UPDATING_EVENT = 'UPDATING_EVENT'
+export const UPDATED_EVENT = 'UPDATED_EVENT'
 
 /*
  * action creators
@@ -80,13 +82,13 @@ const addedEvent = (event) => ({
     event: event
 })
 
-export const addEvent = (name, startDate, duration) => {
+export const addEvent = (name, startDate, duration, link) => {
     return (dispatch, getState) => {
         dispatch(addingEvent())
 
         const bearer = getState().bearer
 
-        const params = {name: name, startDate: startDate, duration: duration}
+        const params = {name: name, startDate: startDate, duration: duration, link: link}
         const data = Object.keys(params).map((key) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')
@@ -178,6 +180,44 @@ export const editEvent = (id) => ({
     id: id
 })
 
-export const updateEvent = (id, name, startDate, duration) => {
-    console.log('HI')
+const updatingEvent = id => ({
+    type: UPDATING_EVENT,
+    id: id
+})
+
+const updatedEvent = event => ({
+    type: UPDATED_EVENT,
+    event: event
+})
+
+export const updateEvent = (id, name, startDate, duration, link) => {
+    return (dispatch, getState) => {
+        dispatch(updatingEvent(id))
+
+        const bearer = getState().bearer
+
+        const params = {name: name, startDate: startDate, duration: duration, link: link}
+        const data = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+        }).join('&')
+
+        return fetch(`http://localhost:8080/event/${id}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${bearer}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body:data
+        })
+        .then(r => {
+            if(!r.ok) {
+                throw Error(r.status)
+            }
+
+            return r
+        })
+        .then(r => r.json())
+        .then(event => dispatch(updatedEvent(event)))
+        .catch(error => dispatch(handleFetchError(error)))
+    }
 }
