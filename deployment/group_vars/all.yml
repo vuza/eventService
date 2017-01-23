@@ -1,3 +1,5 @@
 ---
 root: "/var/node/eventService"
 remote_user: deploy
+gitUrl: "https://github.com/vuza/eventService.git"
+gitVersion: "master"
