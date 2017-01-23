@@ -3,14 +3,12 @@
   git: repo={{ gitUrl }} dest={{ root }} force=yes accept_hostkey=True version={{ gitVersion }}
 
 - name: Build docker
-  become: True
   docker_image:
     path: "{{ root }}/frontend"
     state: present
     name: vuza/eventservice-frontend
 
 - name: Start eventService-frontend
-  become: True
   docker:
     image: vuza/eventservice-frontend
     state: reloaded
