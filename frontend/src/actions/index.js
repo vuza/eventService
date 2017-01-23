@@ -1,4 +1,12 @@
 /*
+ * Config
+ */
+
+ const protocoll = 'http'
+ const host = 'alagoda.at'
+ const port = 8080
+
+/*
  * action types
  */
 
@@ -19,7 +27,6 @@ export const UPDATED_EVENT = 'UPDATED_EVENT'
 /*
  * action creators
  */
-
 
 const handleFetchError = (error) => {
      if(error.message === '401') {
@@ -53,7 +60,7 @@ export const authorize = (username, password) => {
              return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
          }).join('&')
 
-         return fetch(`http://localhost:8080/auth`, {
+         return fetch(`${protocoll}://${host}:${port}/auth`, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/x-www-form-urlencoded'
@@ -93,7 +100,7 @@ export const addEvent = (name, startDate, duration, link) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')
 
-        return fetch(`http://localhost:8080/event`, {
+        return fetch(`${protocoll}://${host}:${port}/event`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${bearer}`,
@@ -127,7 +134,7 @@ export const fetchEvents = () => {
     return (dispatch) => {
         dispatch(requestEvents())
 
-        return fetch('http://localhost:8080/events')
+        return fetch(`${protocoll}://${host}:${port}/events`)
             .then(r => {
                 if(!r.ok) {
                     throw Error(r.status)
@@ -201,7 +208,7 @@ export const updateEvent = (id, name, startDate, duration, link) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')
 
-        return fetch(`http://localhost:8080/event/${id}`, {
+        return fetch(`${protocoll}://${host}:${port}/event/${id}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${bearer}`,
