@@ -163,7 +163,7 @@ export const deleteEvent = (id) => {
 
         const bearer = getState().bearer
 
-        return fetch(`http://localhost:8080/event/${id}`, {
+        return fetch(`${protocoll}://${host}:${port}/event/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${bearer}`,
