@@ -23,7 +23,7 @@ const LoginComponent = ({ dispatch }) => {
                 <input ref={node => {
                     username = node
                 }} />
-                <input ref={node => {
+                <input type='password' ref={node => {
                     password = node
                 }} />
                 <button type='submit'>
