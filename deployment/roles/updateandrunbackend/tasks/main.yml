@@ -14,7 +14,6 @@
   docker_container:
     name: redis
     image: redis
-    state: started
     restart_policy: "always"
     restart: yes
 
