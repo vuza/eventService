@@ -20,10 +20,10 @@ const LoginComponent = ({ dispatch }) => {
                 username.value = ''
                 password.value = ''
             }}>
-                <input defaultValue='marlon' ref={node => {
+                <input ref={node => {
                     username = node
                 }} />
-                <input defaultValue='xx' ref={node => {
+                <input ref={node => {
                     password = node
                 }} />
                 <button type='submit'>
