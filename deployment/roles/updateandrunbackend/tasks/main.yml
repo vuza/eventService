@@ -7,6 +7,7 @@
   docker_image:
     path: "{{ root }}"
     name: vuza/eventservice-backend
+    force: True
 
 - name: Start database service
   become: True

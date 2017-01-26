@@ -6,7 +6,7 @@
   docker_image:
     path: "{{ root }}/frontend"
     name: vuza/eventservice-frontend
-    nocache: True
+    force: True
 
 - name: Start eventService-frontend
   docker_container:
