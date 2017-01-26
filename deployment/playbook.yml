@@ -7,8 +7,8 @@
       raw: sudo apt-get -y install python-simplejson
   roles:
       - { role: gatherfacts }
-      - { role: angstwad.docker_ubuntu, pip_version_docker_py: 1.7.0 }
+      - { role: angstwad.docker_ubuntu }
       - { role: gantsign.gitkraken }
-      - { role: install } # Download this repo
-      - { role: updateandrunbackend, tags: [ updateandrunbackend ] } # build docker and start this and dependend dockers
-      - { role: updateandrunfrontend, tags: [ updateandrunfrontend ] } # build docker and start it
+      - { role: install, tags: [ install, application ] } # Download this repo
+      - { role: updateandrunbackend, tags: [ updateandrunbackend, application ] } # build docker and start this and dependend dockers
+      - { role: updateandrunfrontend, tags: [ updateandrunfrontend, application ] } # build docker and start it
