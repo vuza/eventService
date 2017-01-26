@@ -3,8 +3,8 @@
  */
 
  const protocoll = 'http'
- const host = 'alagoda.at'
- const port = 8080
+ const host = 'api.alagoda.at'
+ const port = 80
 
 /*
  * action types
