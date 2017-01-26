@@ -1,7 +1,12 @@
 ---
 - hosts: '{{ target }}'
   become: True
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-simplejson
   roles:
+      - { role: gatherfacts }
       - { role: angstwad.docker_ubuntu, pip_version_docker_py: 1.7.0 }
       - { role: gantsign.gitkraken }
       - { role: install } # Download this repo
