@@ -3,7 +3,7 @@
  */
 
  const protocoll = 'http'
- const host = 'api.alagoda.at'
+ const host = 'api.asiamed.at'
  const port = 80
 
 /*
