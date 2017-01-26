@@ -14,3 +14,5 @@
     image: vuza/eventservice-frontend
     ports:
       - "9000:9000"
+    restart_policy: "always"
+    restart: yes

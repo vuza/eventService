@@ -15,6 +15,8 @@
     name: redis
     image: redis
     state: started
+    restart_policy: "always"
+    restart: yes
 
 - name: Start eventService-backend
   become: True
@@ -25,3 +27,5 @@
       - "8080:8080"
     links:
       - "redis:redis"
+    restart_policy: "always"
+    restart: yes
