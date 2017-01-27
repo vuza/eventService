@@ -7,8 +7,8 @@ const LoginComponent = ({ dispatch }) => {
     let password
 
     return (
-        <div>
-            <form onSubmit={e => {
+        <div className='row'>
+            <form className='col s12' onSubmit={e => {
                 e.preventDefault()
 
                 if(!username.value.trim() || !password.value.trim()) {
@@ -20,13 +20,23 @@ const LoginComponent = ({ dispatch }) => {
                 username.value = ''
                 password.value = ''
             }}>
-                <input ref={node => {
-                    username = node
-                }} />
-                <input type='password' ref={node => {
-                    password = node
-                }} />
-                <button type='submit'>
+                <div className='row'>
+                    <div className='input-field col s6'>
+                        <input placeholder='Type your username' id='username' type='text' ref={node => {
+                            username = node
+                        }} />
+                        <label for='username'>Username</label>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='input-field col s6'>
+                        <input placeholder='Type your password' id='password' type='password' ref={node => {
+                            password = node
+                        }} />
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <button className='waves-effect waves-light btn-large' type='submit'>
                     Login
                 </button>
             </form>
