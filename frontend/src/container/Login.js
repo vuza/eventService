@@ -36,9 +36,13 @@ const LoginComponent = ({ dispatch }) => {
                         <label for="password">Password</label>
                     </div>
                 </div>
-                <button className='waves-effect waves-light btn-large' type='submit'>
-                    Login
-                </button>
+                <div className='row'>
+                    <div className='input-field col s6'>
+                        <button className='waves-effect waves-light btn-large' type='submit'>
+                            Login
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     )
