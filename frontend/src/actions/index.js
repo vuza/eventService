@@ -89,7 +89,7 @@ const addedEvent = (event) => ({
     event: event
 })
 
-export const addEvent = (name, startDate, duration, link) => {
+export const addEvent = (name, startDate, duration, link) => {    
     return (dispatch, getState) => {
         dispatch(addingEvent())
 

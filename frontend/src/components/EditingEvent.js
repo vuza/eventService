@@ -23,57 +23,53 @@ const EditingEvent = ({ id = '', name = '', startDate = '', duration = '', link 
                 newLink.value = ''
             }}>
                 <div className='row'>
-                    <div className='input-field col s6'>
+                    <div className='input-field col s2'>
                         <input
                             defaultValue={ name }
                             id='name'
+                            type='text'
                             ref={ node => {
                                 newName = node
                             }}
                         />
                         <label for='name'>Eventname</label>
                     </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s6'>
+                    <div className='input-field col s2'>
                         <input
                             defaultValue={ startDate }
                             id='startDate'
+                            type='text'
                             ref={ node => {
                                 newStartDate = node
                             }}
                         />
                         <label for='startDate'>Startdate</label>
                     </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s6'>
+                    <div className='input-field col s2'>
                         <input
                             defaultValue={ duration }
                             id='duration'
+                            type='text'
                             ref={ node => {
                                 newDuration = node
                             }}
                         />
                         <label for='duration'>Duration</label>
                     </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s6'>
+                    <div className='input-field col s2'>
                         <input
                             defaultValue={ link }
                             id='link'
+                            type='text'
                             ref={ node => {
                                 newLink = node
                             }}
                         />
                         <label for='link'>Link</label>
                     </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s6'>
-                        <button className='waves-effect waves-light btn-large' type='submit'>
-                            Save
+                    <div className='input-field col s4'>
+                        <button className='waves-effect waves-light' type='submit'>
+                            Save Event
                         </button>
                     </div>
                 </div>

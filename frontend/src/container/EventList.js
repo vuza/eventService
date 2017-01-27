@@ -5,32 +5,34 @@ import EditingEvent from '../components/EditingEvent'
 import { deleteEvent, editEvent, updateEvent } from '../actions'
 
 const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
-  <ul>
-    {events.map((event) =>
-        event.editing ?
-            <li key={event.id}>
-                <EditingEvent
+    <div className='row'>
+        <ul className='col s12'>
+            {events.map((event) =>
+                event.editing ?
+
+                <li key={event.id}>
+                    <EditingEvent
+                        {...event}
+                        onSave={onSave} />
+                </li> :
+
+                <Event
+                    key={event.id}
                     {...event}
-                    onSave={onSave}
-                />
-            </li> :
-            <Event
-                key={event.id}
-                {...event}
-                onDelete={() => onDelete(event.id)}
-                onEdit={() => onEdit(event.id)}
-            />
-    )}
-  </ul>
+                    onDelete={() => onDelete(event.id)}
+                    onEdit={() => onEdit(event.id)} />
+            )}
+        </ul>
+    </div>
 )
 
 EventListComponent.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired).isRequired
+    events: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        duration: PropTypes.string.isRequired,
+        startDate: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    }).isRequired).isRequired
 }
 
 const mapStateToProps = (state) => ({
