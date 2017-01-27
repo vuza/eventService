@@ -5,12 +5,15 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "quickStart": "./node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "./node_modules/react-scripts/bin/react-scripts.js build"
+    "build": "./node_modules/react-scripts/bin/react-scripts.js build && node buildTheme.js",
+    "build-theme": "node buildTheme.js",
+    "start": "./node_modules/pushstate-server/bin/pushstate-server build"
   },
   "author": "malagoda",
   "license": "ISC",
   "dependencies": {
+    "mkpath": "^1.0.0",
+    "node-sass": "^4.3.0",
     "pushstate-server": "^2.1.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
