@@ -70,7 +70,7 @@ class EditingEvent extends Component {
                             <label for='link'>Link</label>
                         </div>
                         <div className='input-field col s4'>
-                            <button className='waves-effect waves-light' type='submit'>
+                            <button className='waves-effect waves-light btn' type='submit'>
                                 Save Event
                             </button>
                         </div>

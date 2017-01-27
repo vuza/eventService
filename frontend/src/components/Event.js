@@ -16,14 +16,14 @@ const Event = ({ id, name, startDate, duration, link, onDelete, onEdit }) => (
         </div>
         <div className='input-field col s2'>
             <button
-                className='waves-effect waves-light'
+                className='waves-effect waves-light  btn'
                 onClick={()=>{onDelete(id)}} >
                 Delete Event
             </button>
         </div>
         <div className='input-field col s2'>
             <button
-                className='waves-effect waves-light'
+                className='waves-effect waves-light  btn'
                 onClick={()=>{onEdit(id)}} >
                 Edit Event
             </button>

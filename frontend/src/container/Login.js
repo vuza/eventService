@@ -38,7 +38,7 @@ const LoginComponent = ({ dispatch }) => {
                 </div>
                 <div className='row'>
                     <div className='input-field col s6'>
-                        <button className='waves-effect waves-light' type='submit'>
+                        <button className='waves-effect waves-light btn' type='submit'>
                             Login
                         </button>
                     </div>
