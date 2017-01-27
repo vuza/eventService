@@ -3,10 +3,11 @@ import React, { PropTypes, Component } from 'react'
 class EditingEvent extends Component {
     componentDidMount() {
         Materialize.updateTextFields()
-    }
 
-    componentDidUpdate() {
-        Materialize.updateTextFields()
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        })
     }
 
     render() {
@@ -27,6 +28,8 @@ class EditingEvent extends Component {
                     this.newStartDate.value = ''
                     this.newDuration.value = ''
                     this.newLink.value = ''
+
+                    Materialize.updateTextFields()
                 }}>
                     <div className='row'>
                         <div className='input-field col s2'>
@@ -42,9 +45,10 @@ class EditingEvent extends Component {
                         </div>
                         <div className='input-field col s2'>
                             <input
+                                type='date'
                                 defaultValue={ startDate }
                                 id='startDate'
-                                type='text'
+                                className='datepicker'
                                 ref={ node => {
                                     this.newStartDate = node
                                 }}
@@ -52,15 +56,19 @@ class EditingEvent extends Component {
                             <label for='startDate'>Startdate</label>
                         </div>
                         <div className='input-field col s2'>
-                            <input
-                                defaultValue={ duration }
-                                id='duration'
-                                type='text'
-                                ref={ node => {
-                                    this.newDuration = node
-                                }}
-                            />
-                            <label for='duration'>Duration</label>
+                            <p className='range-field'>
+                                <input
+                                    defaultValue={ duration }
+                                    id='duration'
+                                    type='range'
+                                    min='0'
+                                    max='1000'
+                                    ref={ node => {
+                                        this.newDuration = node
+                                    }}
+                                />
+                            </p>
+                            <label for='duration'>Duration in minutes</label>
                         </div>
                         <div className='input-field col s2'>
                             <input
