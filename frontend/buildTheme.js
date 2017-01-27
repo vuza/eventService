@@ -10,6 +10,7 @@ var result = sass.renderSync({
 });
 
 mkpath.sync('build/static/css/');
+mkpath.sync('build/static/js/');
 fs.writeFileSync('build/static/css/materialize.min.css', result.css);
 fs.createReadStream('src/scripts/materialize.min.js').pipe(fs.createWriteStream('build/static/js/materialize.min.js'));
 ncp('src/fonts', 'build/static/fonts', function (err) {
