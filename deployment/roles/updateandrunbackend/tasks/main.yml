@@ -29,5 +29,5 @@
     restart_policy: "always"
     restart: yes
     env:
-        CHANDIMA_PASSWORD: worksa
-        MARLON_PASSWORD: worksb
+        CHANDIMA_PASSWORD: "{{ chandimaPassword }}"
+        MARLON_PASSWORD: "{{ marlonPassword }}"
