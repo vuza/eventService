@@ -13,4 +13,6 @@ COPY . /usr/src/app
 
 EXPOSE 9000
 
-CMD ./node_modules/react-scripts/bin/react-scripts.js build && node buildTheme.js && ./node_modules/pushstate-server/bin/pushstate-server build
+RUN ./node_modules/react-scripts/bin/react-scripts.js build
+RUN node buildTheme.js
+CMD ./node_modules/pushstate-server/bin/pushstate-server build
