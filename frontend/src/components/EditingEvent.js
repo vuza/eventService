@@ -1,81 +1,84 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 
-const EditingEvent = ({ id = '', name = '', startDate = '', duration = '', link = '', onSave }) => {
-    let newName
-    let newStartDate
-    let newDuration
-    let newLink
+class EditingEvent extends Component {
+    componentDidMount() {
+        Materialize.updateTextFields();
+    }
 
-    return (
-        <div className='row'>
-            <form className='col s12' onSubmit={ e => {
-                e.preventDefault()
+    render() {
+        const { id = '', name = '', startDate = '', duration = '', link = '', onSave } = this.props
 
-                if (!newName.value.trim() || !newStartDate.value.trim() || !newDuration.value.trim()) {
-                    return
-                }
+        return (
+            <div className='row'>
+                <form className='col s12' onSubmit={ e => {
+                    e.preventDefault()
 
-                onSave(id, newName.value, newStartDate.value, newDuration.value, newLink.value)
+                    if (!this.newName.value.trim() || !this.newStartDate.value.trim() || !this.newDuration.value.trim()) {
+                        return
+                    }
 
-                newName.value = ''
-                newStartDate.value = ''
-                newDuration.value = ''
-                newLink.value = ''
-            }}>
-                <div className='row'>
-                    <div className='input-field col s2'>
-                        <input
-                            defaultValue={ name }
-                            id='name'
-                            type='text'
-                            ref={ node => {
-                                newName = node
-                            }}
-                        />
-                        <label for='name'>Eventname</label>
+                    onSave(id, this.newName.value, this.newStartDate.value, this.newDuration.value, this.newLink.value)
+
+                    this.newName.value = ''
+                    this.newStartDate.value = ''
+                    this.newDuration.value = ''
+                    this.newLink.value = ''
+                }}>
+                    <div className='row'>
+                        <div className='input-field col s2'>
+                            <input
+                                defaultValue={ name }
+                                id='name'
+                                type='text'
+                                ref={ node => {
+                                    this.newName = node
+                                }}
+                            />
+                            <label for='name'>Eventname</label>
+                        </div>
+                        <div className='input-field col s2'>
+                            <input
+                                defaultValue={ startDate }
+                                id='startDate'
+                                type='text'
+                                ref={ node => {
+                                    this.newStartDate = node
+                                }}
+                            />
+                            <label for='startDate'>Startdate</label>
+                        </div>
+                        <div className='input-field col s2'>
+                            <input
+                                defaultValue={ duration }
+                                id='duration'
+                                type='text'
+                                ref={ node => {
+                                    this.newDuration = node
+                                }}
+                            />
+                            <label for='duration'>Duration</label>
+                        </div>
+                        <div className='input-field col s2'>
+                            <input
+                                defaultValue={ link }
+                                id='link'
+                                type='text'
+                                ref={ node => {
+                                    this.newLink = node
+                                }}
+                            />
+                            <label for='link'>Link</label>
+                        </div>
+                        <div className='input-field col s4'>
+                            <button className='waves-effect waves-light' type='submit'>
+                                Save Event
+                            </button>
+                        </div>
                     </div>
-                    <div className='input-field col s2'>
-                        <input
-                            defaultValue={ startDate }
-                            id='startDate'
-                            type='text'
-                            ref={ node => {
-                                newStartDate = node
-                            }}
-                        />
-                        <label for='startDate'>Startdate</label>
-                    </div>
-                    <div className='input-field col s2'>
-                        <input
-                            defaultValue={ duration }
-                            id='duration'
-                            type='text'
-                            ref={ node => {
-                                newDuration = node
-                            }}
-                        />
-                        <label for='duration'>Duration</label>
-                    </div>
-                    <div className='input-field col s2'>
-                        <input
-                            defaultValue={ link }
-                            id='link'
-                            type='text'
-                            ref={ node => {
-                                newLink = node
-                            }}
-                        />
-                        <label for='link'>Link</label>
-                    </div>
-                    <div className='input-field col s4'>
-                        <button className='waves-effect waves-light' type='submit'>
-                            Save Event
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    )
+                </form>
+            </div>
+        )
+    }
 }
 
 EditingEvent.propTypes = {

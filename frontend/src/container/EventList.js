@@ -1,45 +1,30 @@
 import { connect } from 'react-redux'
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import Event from '../components/Event'
 import EditingEvent from '../components/EditingEvent'
 import { deleteEvent, editEvent, updateEvent } from '../actions'
 
-class EventListComponent extends Component {
-    constructor({ events, onDelete, onEdit, onSave }) {
-        super()
+const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
+    <div className='row'>
+        <ul className='col s12'>
+            {events.map((event) =>
+                event.editing ?
 
-        this.events = events
-        this.onDelete = onDelete
-        this.onEdit = onEdit
-        this.onSave = onSave
-    }
-
-    componentDidMount = () => {
-        Materialize.updateTextFields();
-    }
-
-    render = () => (
-        <div className='row'>
-            <ul className='col s12'>
-                {this.events.map((event) =>
-                    event.editing ?
-
-                    <li key={event.id}>
-                        <EditingEvent
-                            {...event}
-                            onSave={this.onSave} />
-                    </li> :
-
-                    <Event
-                        key={event.id}
+                <li key={event.id}>
+                    <EditingEvent
                         {...event}
-                        onDelete={() => this.onDelete(event.id)}
-                        onEdit={() => this.onEdit(event.id)} />
-                )}
-            </ul>
-        </div>
-    )
-}
+                        onSave={onSave} />
+                </li> :
+
+                <Event
+                    key={event.id}
+                    {...event}
+                    onDelete={() => onDelete(event.id)}
+                    onEdit={() => onEdit(event.id)} />
+            )}
+        </ul>
+    </div>
+)
 
 EventListComponent.propTypes = {
     events: PropTypes.arrayOf(PropTypes.shape({
