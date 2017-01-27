@@ -1,7 +1,7 @@
 {
     "users": {
-        "chandi": {"username": "chandi", "password": "xx"},
-        "marlon": {"username": "marlon", "password": "xx"}
+        "chandi": {"username": "chandima"},
+        "marlon": {"username": "marlon"}
     },
 
     "listenPort": 8080,

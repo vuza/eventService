@@ -1,4 +1,12 @@
 {
+    "users": {
+        "chandima": {
+            "password": "CHANDIMA_PASSWORD"
+        },
+        "marlon": {
+            "password": "MARLON_PASSWORD"
+        }
+    },
     "redis": {
         "host": "REDIS_HOST",
         "port": "REDIS_PORT"
