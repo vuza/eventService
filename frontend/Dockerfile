@@ -13,5 +13,4 @@ COPY . /usr/src/app
 
 EXPOSE 9000
 
-RUN npm run build
-CMD ./node_modules/pushstate-server/bin/pushstate-server build
+CMD npm start
