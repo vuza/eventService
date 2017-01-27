@@ -2,7 +2,11 @@ import React, { PropTypes, Component } from 'react'
 
 class EditingEvent extends Component {
     componentDidMount() {
-        Materialize.updateTextFields();
+        Materialize.updateTextFields()
+    }
+
+    componentDidUpdate() {
+        Materialize.updateTextFields()
     }
 
     render() {

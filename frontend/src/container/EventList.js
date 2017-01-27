@@ -6,23 +6,28 @@ import { deleteEvent, editEvent, updateEvent } from '../actions'
 
 const EventListComponent = ({ events, onDelete, onEdit, onSave }) => (
     <div className='row'>
-        <ul className='col s12'>
-            {events.map((event) =>
-                event.editing ?
+        <div className='col s12'>
+            <ul className='collection'>
+                {events.map((event) =>
+                    event.editing ?
 
-                <li key={event.id}>
-                    <EditingEvent
+                    <li
+                        key={event.id}
+                        className='collection-item'
+                    >
+                        <EditingEvent
+                            {...event}
+                            onSave={onSave} />
+                    </li> :
+
+                    <Event
+                        key={event.id}
                         {...event}
-                        onSave={onSave} />
-                </li> :
-
-                <Event
-                    key={event.id}
-                    {...event}
-                    onDelete={() => onDelete(event.id)}
-                    onEdit={() => onEdit(event.id)} />
-            )}
-        </ul>
+                        onDelete={() => onDelete(event.id)}
+                        onEdit={() => onEdit(event.id)} />
+                )}
+            </ul>
+        </div>
     </div>
 )
 
