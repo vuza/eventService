@@ -8,7 +8,7 @@ const events = (state = [], action) => {
                 name: action.event.name,
                 startDate: action.event.startDate,
                 duration: action.event.duration,
-                link: action.event.link
+                description: action.event.description
             }])
 
         case actionTypes.RECEIVE_EVENTS:

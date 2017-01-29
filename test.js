@@ -77,7 +77,7 @@ describe('Event Service', () => {
 				assert(!err, err ? err.message : '');
 				assert.notEqual(res.text, null);
 
-				redisClient.get(res.text, (err, event) => {
+				redisClient.get(JSON.parse(res.text).id, (err, event) => {
 					assert(!err, err ? err.message : '');
 					assert.notEqual(event, null);
 
@@ -97,7 +97,7 @@ describe('Event Service', () => {
 			const name = 'testevent';
 			const id = hash(name);
 
-			redisClient.set(id, JSON.stringify({name: name, startDate: 'llkasdf', duration: 'asldfkj'}), () => {
+			redisClient.set(id, JSON.stringify({id: id, name: name, startDate: 'llkasdf', duration: 'asldfkj'}), () => {
 				const newName = 'laskjf';
 				const newStartDate = 'aslkdfj';
 				const newDuration = 'sdf';
@@ -108,8 +108,8 @@ describe('Event Service', () => {
 				.set('Authorization', `Bearer ${bearer}`)
 				.expect(200, (err, res) => {
 					assert(!err, err ? err.message : '');
-
-					redisClient.get(res.text, (err, event) => {
+					
+					redisClient.get(JSON.parse(res.text).id, (err, event) => {
 						assert(!err, err ? err.message : '');
 						assert.notEqual(event, null);
 

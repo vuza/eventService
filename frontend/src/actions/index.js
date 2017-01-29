@@ -89,13 +89,13 @@ const addedEvent = (event) => ({
     event: event
 })
 
-export const addEvent = (name, startDate, duration, link) => {
+export const addEvent = (name, startDate, duration, description) => {
     return (dispatch, getState) => {
         dispatch(addingEvent())
 
         const bearer = getState().bearer
 
-        const params = {name: name, startDate: startDate, duration: duration, link: link}
+        const params = {name: name, startDate: startDate, duration: duration, description: description}
         const data = Object.keys(params).map((key) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')
@@ -197,13 +197,13 @@ const updatedEvent = event => ({
     event: event
 })
 
-export const updateEvent = (id, name, startDate, duration, link) => {
+export const updateEvent = (id, name, startDate, duration, description) => {
     return (dispatch, getState) => {
         dispatch(updatingEvent(id))
 
         const bearer = getState().bearer
 
-        const params = {name: name, startDate: startDate, duration: duration, link: link}
+        const params = {name: name, startDate: startDate, duration: duration, description: description}
         const data = Object.keys(params).map((key) => {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&')

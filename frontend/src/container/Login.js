@@ -22,7 +22,7 @@ const LoginComponent = ({ dispatch }) => {
             }}>
                 <div className='row'>
                     <div className='input-field col s6'>
-                        <input placeholder='Type your username' id='username' type='text' ref={node => {
+                        <input id='username' type='text' ref={node => {
                             username = node
                         }} />
                         <label for='username'>Username</label>
@@ -30,7 +30,7 @@ const LoginComponent = ({ dispatch }) => {
                 </div>
                 <div className='row'>
                     <div className='input-field col s6'>
-                        <input placeholder='Type your password' id='password' type='password' ref={node => {
+                        <input id='password' type='password' ref={node => {
                             password = node
                         }} />
                         <label for="password">Password</label>

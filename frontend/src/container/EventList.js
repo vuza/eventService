@@ -47,7 +47,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
     onDelete: id => dispatch(deleteEvent(id)),
     onEdit: id => dispatch(editEvent(id)),
-    onSave: (id, name, startDate, duration, link) => dispatch(updateEvent(id, name, startDate, duration, link))
+    onSave: (id, name, startDate, duration, description) => dispatch(updateEvent(id, name, startDate, duration, description))
 })
 
 const EventList = connect(

@@ -79,7 +79,7 @@ const createNewEvent = (req, res) => {
 	const name = req.body.name;
 	const startDate = req.body.startDate;
 	const duration = req.body.duration;
-	const link = req.body.link || '';
+	const description = req.body.description || '';
 
 	if(!name || !startDate || !duration){
 		return res.status(400).send('Parameter missing');
@@ -94,7 +94,7 @@ const createNewEvent = (req, res) => {
 		}
 
 		if(!event){
-			const newEvent = {name: name, startDate: startDate, duration: duration, id: id, link: link};
+			const newEvent = {name: name, startDate: startDate, duration: duration, id: id, description: description};
 			redisClient.set(id, JSON.stringify(newEvent), (err) => {
 				if(err) {
 					console.error(`Error while creating Event with id ${id}.`);
@@ -131,7 +131,7 @@ const editEvent = (req, res) => {
 		event.name = req.body.name || event.name;
 		event.startDate = req.body.startDate || event.startDate;
 		event.duration = req.body.duration || event.duration;
-		event.link = req.body.link || event.link;
+		event.description = req.body.description || event.description;
 
 		redisClient.set(id, JSON.stringify(event), (err) => {
 			if(err) {

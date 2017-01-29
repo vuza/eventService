@@ -3,8 +3,8 @@ import { addEvent } from '../actions'
 import EditingEvent from '../components/EditingEvent'
 
 const mapDispatchToProps = dispatch => ({
-    onSave: (id, name, startDate, duration, link) => {
-        dispatch(addEvent(name, startDate, duration, link))
+    onSave: (id, name, startDate, duration, description) => {
+        dispatch(addEvent(name, startDate, duration, description))
     }
 })
 
