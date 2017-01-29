@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react'
 
 const Event = ({ id, name, startDate, duration, description, onDelete, onEdit }) => {
-    console.log(description)
+    if(description.length > 105) {
+        description = description.substring(0, 100) + '...'
+    }
 
     return (
         <li className='collection-item'

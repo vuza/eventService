@@ -16,6 +16,14 @@ class EditingEvent extends Component {
     render() {
         const { id = '', name = '', startDate = '', duration = '', description = '', onSave } = this.props
 
+        var startDateValue = ''
+        var startTimeValue = ''
+        if(startDate != '') {
+            const startDateObject = new Date(startDate)
+            startDateValue = startDateObject.getUTCFullYear() + '-' + ('0' + (startDateObject.getUTCMonth() + 1)).slice(-2) + '-' + ('0' + startDateObject.getUTCDate()).slice(-2)
+            startTimeValue = ('0' + startDateObject.getUTCHours()).slice(-2) + ':' + ('0' + startDateObject.getUTCMinutes()).slice(-2)
+        }
+
         return (
             <div className='row'>
                 <form className='col s12' onSubmit={ e => {
@@ -58,7 +66,7 @@ class EditingEvent extends Component {
                             <div className='input-field inline'>
                                 <input
                                     type='date'
-                                    defaultValue={ startDate }
+                                    defaultValue={ startDateValue }
                                     id='startDate'
                                     className='datepicker'
                                     ref={ node => {
@@ -70,6 +78,7 @@ class EditingEvent extends Component {
                             <div style={{width: '50%'}} className='input-field inline'>
                                 <input
                                     id='startTime'
+                                    defaultValue={ startTimeValue }
                                     type='time'
                                     min='0'
                                     max='1000'
