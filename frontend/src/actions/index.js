@@ -3,11 +3,8 @@
  */
 
  const protocoll = 'http'
- var host = 'api.asiamed.at'
- var port = 80
-
- host = 'localhost'
- port = 8080
+ const host = 'api.asiamed.at'
+ const port = 80
 
 /*
  * action types
