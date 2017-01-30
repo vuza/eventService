@@ -5,6 +5,8 @@ const Event = ({ id, name, startDate, duration, description, onDelete, onEdit })
         description = description.substring(0, 100) + '...'
     }
 
+    startDate = new Date(startDate).toString()
+
     return (
         <li className='collection-item'
             style={{

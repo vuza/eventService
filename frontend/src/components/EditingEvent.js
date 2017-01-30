@@ -20,8 +20,8 @@ class EditingEvent extends Component {
         var startTimeValue = ''
         if(startDate != '') {
             const startDateObject = new Date(startDate)
-            startDateValue = startDateObject.getUTCFullYear() + '-' + ('0' + (startDateObject.getUTCMonth() + 1)).slice(-2) + '-' + ('0' + startDateObject.getUTCDate()).slice(-2)
-            startTimeValue = ('0' + startDateObject.getUTCHours()).slice(-2) + ':' + ('0' + startDateObject.getUTCMinutes()).slice(-2)
+            startDateValue = startDateObject.getFullYear() + '-' + ('0' + (startDateObject.getMonth() + 1)).slice(-2) + '-' + ('0' + startDateObject.getDate()).slice(-2)
+            startTimeValue = ('0' + startDateObject.getHours()).slice(-2) + ':' + ('0' + startDateObject.getMinutes()).slice(-2)
         }
 
         return (
