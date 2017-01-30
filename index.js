@@ -188,6 +188,10 @@ const listEvents = (req, res) => {
 					return res.status(500).send();
 				}
 
+				events.sort((a, b) => {
+					return new Date(Date.parse(JSON.parse(a).startDate)) - new Date(Date.parse(JSON.parse(b).startDate))
+				})
+
 				return res.status(200).send(events);
 			}
         );
