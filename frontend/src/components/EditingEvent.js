@@ -63,7 +63,7 @@ class EditingEvent extends Component {
                             <label for='name'>Eventname</label>
                         </div>
                         <div className='col s3'>
-                            <div className='input-field inline'>
+                            <div style={{width: '50%', 'margin-left': '-5px', 'padding-left': '5px'}} className='input-field inline'>
                                 <input
                                     type='date'
                                     defaultValue={ startDateValue }
@@ -73,9 +73,9 @@ class EditingEvent extends Component {
                                         this.newStartDate = node
                                     }}
                                 />
-                                <label for='startDate'>Start Date</label>
+                                <label style={{'padding-left': '5px'}} for='startDate'>Start Date</label>
                             </div>
-                            <div style={{width: '50%'}} className='input-field inline'>
+                            <div style={{width: '50%', 'margin-left': '0'}} className='input-field inline'>
                                 <input
                                     id='startTime'
                                     defaultValue={ startTimeValue }
@@ -99,7 +99,7 @@ class EditingEvent extends Component {
                                     this.newDuration = node
                                 }}
                             />
-                            <label for='duration'>Duration in minutes</label>
+                            <label for='duration'>Minutes</label>
                         </div>
                         <div className='input-field col s4'>
                             <textarea
